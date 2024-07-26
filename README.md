@@ -14,7 +14,7 @@ Download the datasets and save them in the correct folders based on the architec
 - [Download UK Postcodes with Latitude and Longitude](https://www.freemaptools.com/download-uk-postcode-lat-lng.htm)
 
 ### Step 1: Install the Requirements
-Install the necessary dependencies by running:
+Install the necessary dependencies by running: `pip install -r requirements.txt`
 
 ### Step 2: first run these notebooks in this order to merge the datasets and provide with a featured cleaned csv file called ML_data.csv
 - 01_importation_fusion.ipynb
