@@ -5,30 +5,26 @@ This data science project is about learning and predicting the response duration
 It is based on the data provided by data.london.gov.uk from the 01.01.2009 to the 30.05.2024.
 
 To use the project efficiently :
- 0 => Download the datasets and save them in the correct folders based on the architecture shown below.
-    [London Fire Brigade Incident Records - London Datastore ](https://data.london.gov.uk/dataset/london-fire-brigade-incident-records)
-    [London Fire Brigade Mobilisation Records - London Datastore](https://data.london.gov.uk/dataset/london-fire-brigade-mobilisation-records)
-    [Download UK Postcodes with Latitude and Longitude] (https://www.freemaptools.com/download-uk-postcode-lat-lng.htm)
-  => install the requirements (requirements.txt)
-
- 1 => first run these notebooks in this order to merge the datasets and provide with a featured cleaned csv file called ML_data.csv
-    01_importation_fusion.ipynb
-    02_weather.ipynb
-    03_featuring.ipynb
-
- 2 => Two possibilities :
-     A => More DETAILED : continue running the following notebooks to show the differents models with a detailed processing included. 
-        04_regression.ipynb
-        05_classification.ipynb
-        06_deep_learning.ipynb
-
-     B => More EFFICIENT : go to the src folder and run the main notebook, this one will use the following scripts to run the wanted models.
-        preprocessing.py
-        regression.py
-        classification.py
-        deep_learning.py
-        utils.py
-
+0 => Download the datasets and save them in the correct folders based on the architecture shown below.
+   [London Fire Brigade Incident Records - London Datastore ](https://data.london.gov.uk/dataset/london-fire-brigade-incident-records)
+   [London Fire Brigade Mobilisation Records - London Datastore](https://data.london.gov.uk/dataset/london-fire-brigade-mobilisation-records)
+   [Download UK Postcodes with Latitude and Longitude] (https://www.freemaptools.com/download-uk-postcode-lat-lng.htm)
+   => install the requirements (requirements.txt)
+1 => first run these notebooks in this order to merge the datasets and provide with a featured cleaned csv file called ML_data.csv
+   01_importation_fusion.ipynb
+   02_weather.ipynb
+   03_featuring.ipynb
+2 => Two possibilities :
+   A => More DETAILED : continue running the following notebooks to show the differents models with a detailed processing included. 
+      04_regression.ipynb
+      05_classification.ipynb
+      06_deep_learning.ipynb
+   B => More EFFICIENT : go to the src folder and run the main notebook, this one will use the following scripts to run the wanted models.
+      preprocessing.py
+      regression.py
+      classification.py
+      deep_learning.py
+      utils.py
 Optionnal => use the exploration.ipynb & dataviz.ipynb notebooks to run the different illustrations that can be found in the report.
 
 Project Architecture
