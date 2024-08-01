@@ -150,8 +150,8 @@ def londonmap(df):
 
 
 def conf_matrix(y_test, y_pred):
-
-    conf_matrix = confusion_matrix(y_test, y_pred_xgb)
+    from sklearn.metrics import confusion_matrix
+    conf_matrix = confusion_matrix(y_test, y_pred)
 
     fig = plt.figure(figsize=(7, 5))
     sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
