@@ -1,4 +1,5 @@
 absl-py==2.1.0
+altair==5.3.0
 anyio @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_646d7rz2z6/croot/anyio_1706220176177/work
 appnope @ file:///Users/ec2-user/ci_py311/appnope_1678317440516/work
 argon2-cffi @ file:///opt/conda/conda-bld/argon2-cffi_1645000214183/work
@@ -10,12 +11,15 @@ attrs @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_8d7c
 Babel @ file:///Users/ec2-user/ci_py311/babel_1678318085010/work
 beautifulsoup4 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_74rj45rt1p/croot/beautifulsoup4-split_1718029835783/work
 bleach @ file:///opt/conda/conda-bld/bleach_1641577558959/work
+blinker==1.8.2
 branca==0.7.2
 Brotli @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_67j4p18ie3/croot/brotli-split_1714483158198/work
+cachetools==5.4.0
 cattrs==23.2.3
 certifi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_73k3qumdla/croot/certifi_1720453498134/work/certifi
 cffi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_229m2kq9fi/croot/cffi_1714483160856/work
 charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
+click==8.1.7
 comm @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_aef2nlxc2o/croot/comm_1709322866518/work
 contourpy==1.2.1
 cycler==0.12.1
@@ -28,6 +32,8 @@ flatbuffers==24.3.25
 folium==0.17.0
 fonttools==4.53.1
 gast==0.6.0
+gitdb==4.0.11
+GitPython==3.1.43
 google-pasta==0.2.0
 grpcio==1.65.1
 h5py==3.11.0
@@ -87,7 +93,9 @@ protobuf==4.25.4
 psutil @ file:///Users/ec2-user/ci_py311_2/psutil_1679337242143/work
 ptyprocess @ file:///tmp/build/80754af9/ptyprocess_1609355006118/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
 pure-eval @ file:///opt/conda/conda-bld/pure_eval_1646925070566/work
+pyarrow==17.0.0
 pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
+pydeck==0.9.1
 Pygments @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_cflayrfqsi/croot/pygments_1684279981084/work
 pyparsing==3.1.2
 PySocks @ file:///Users/ec2-user/ci_py311/pysocks_1678315868424/work
@@ -109,9 +117,12 @@ scipy==1.14.0
 seaborn==0.13.2
 Send2Trash @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_6c5du7dh0i/croot/send2trash_1699371145992/work
 six @ file:///tmp/build/80754af9/six_1644875935023/work
+smmap==5.0.1
 sniffio @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_a46njf828g/croot/sniffio_1705431298111/work
 soupsieve @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_9cjy8iflks/croot/soupsieve_1696347576367/work
 stack-data @ file:///opt/conda/conda-bld/stack_data_1646927590127/work
+streamlit==1.37.0
+streamlit_folium==0.22.0
 tenacity==8.5.0
 tensorboard==2.16.2
 tensorboard-data-server==0.7.2
@@ -121,6 +132,8 @@ termcolor==2.4.0
 terminado @ file:///Users/ec2-user/ci_py311/terminado_1678317735543/work
 threadpoolctl==3.5.0
 tinycss2 @ file:///Users/ec2-user/ci_py311/tinycss2_1678317366076/work
+toml==0.10.2
+toolz==0.12.1
 tornado @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_7e0ruwlfee/croot/tornado_1718740118099/work
 traitlets @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_f49losghmg/croot/traitlets_1718227069025/work
 typing_extensions @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_0b3pj9yhn2/croot/typing_extensions_1715268854415/work

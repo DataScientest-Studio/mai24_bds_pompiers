@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import pickle
+import streamlit as st
 
 def dataframe_info(df):
     """
@@ -35,7 +36,7 @@ def racine_projet():
     racine = os.path.dirname(dossier_courant)
     return racine
 
-def save_model(model, model_name)
+def save_model(model, model_name):
     """
     Renseigner le modèle et le nom que l'on souhaite lui associé pour le sauvegarder directement dans le dossier models.
     """
@@ -43,7 +44,7 @@ def save_model(model, model_name)
     with open(chemin_fichier, 'wb') as file:
         pickle.dump(model, file)
 
-def load_model(model_name)
+def load_model(model_name):
     """
     Renseigner le nom du modèle pour le charger.
     Renvoie en sortie le modèle chargé
@@ -54,3 +55,14 @@ def load_model(model_name)
         loaded_model = pickle.load(file)
     
     return loaded_model
+
+
+def load_and_display_plot(image_name):
+    path = racine_projet()+'/reports/figures/'+ image_name
+    st.image(path)
+
+def load_and_display_interactive_plot(image_name):
+    path = racine_projet()+'/reports/figures/'+ image_name    
+    with open(path, "r") as f:
+        html_content = f.read()    
+    st.components.v1.html(html_content, height=600)
