@@ -35,6 +35,7 @@ Install the necessary dependencies by running: `pip install -r requirements.txt`
 
 ### Step 4: optionnal
 - use the exploration.ipynb & dataviz.ipynb notebooks to run the different illustrations that can be found in the report.
+- run the comand : `streamlit run streamlit_app_cv.py` to show the app
 
 
 Project Architecture
@@ -78,7 +79,7 @@ Project Architecture
     │   └── SL_dataviz.ipynb                    <- Scripts to run data visualization (by Suzanne)
     │
     ├── reports            <- The reports that you'll make during this project as PDF
-    │   └── figures        <- Generated graphics and figures to be used in reporting
+    │   └── figures        <- Generated graphics and figures to be used in reporting and in streamlit
     │
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
@@ -86,15 +87,14 @@ Project Architecture
     │
     ├── src                <- Source code for use in this project.
     │   ├── __init__.py    <- Makes src a Python module
-    │   ├── utils.py                            <- Scripts that contains useful functions
-    │   ├── main.py                             <- Scripts to use to run and save the different models directly (regression / classification / deep learning)
-    │   ├── read_models.py                      <- Scripts to use to load the different models from the models folder 
-    │   ├── preprocessing.py                    <- Scripts that contains the necessary functions to do the preprocessing
-    │   ├── regression.py                       <- Scripts that contains the necessary functions to run regression models
-    │   ├── classification.py                   <- Scripts that contains the necessary functions to run classification models
-    │   └── deep_learning.py                    <- Scripts that contains the necessary functions to run deep learning models
-    │  
+    │   ├── utils.py                    <- Scripts that contains useful functions
+    │   ├── main.py                     <- Scripts to use to run and save the different models directly (regression / classification / deep learning)
+    │   ├── read_models.py              <- Scripts to use to load the different models from the models folder 
+    │   ├── preprocessing.py            <- Scripts that contains the necessary functions to do the preprocessing
+    │   ├── regression.py               <- Scripts that contains the necessary functions to run regression models
+    │   ├── classification.py           <- Scripts that contains the necessary functions to run classification models
+    │   ├── deep_learning.py            <- Scripts that contains the necessary functions to run deep learning models
+    │   ├── viz.py                      <- Scripts that contains the necessary functions to display figures in streamlit    
+    │   └── streamlit_app_cv.py         <- Scripts to use to run the streamlit app
     │  
 --------
-
-<p><small>Project based on the <a target="ResponseDuration" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>

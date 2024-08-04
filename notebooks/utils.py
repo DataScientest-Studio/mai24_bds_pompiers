@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import pickle
+import streamlit as st
 
 def dataframe_info(df):
     """
@@ -54,3 +55,14 @@ def load_model(model_name):
         loaded_model = pickle.load(file)
     
     return loaded_model
+
+
+def load_and_display_plot(image_name, width = 800):
+    path = racine_projet()+'/reports/figures/'+ image_name
+    st.image(path, use_column_width=False , width=width)
+
+def load_and_display_interactive_plot(image_name, height = 800):
+    path = racine_projet()+'/reports/figures/'+ image_name    
+    with open(path, "r") as f:
+        html_content = f.read()    
+    st.components.v1.html(html_content, height= height, width = 800, scrolling=True)

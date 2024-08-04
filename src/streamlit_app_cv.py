@@ -22,23 +22,71 @@ from deep_learning import deep_learning_dense, deep_learning_improved
 st.markdown(
     """
     <style>
+    /* Fond général de l'application */
     .stApp {
-        background-color: #d69494; /* Fond général */
+        background-color: #ffffff; /* Blanc */
     }
+    
+    /* Fond de la barre latérale */
     .stSidebar {
-        background-color: #b9b2b2; /* Fond de la barre latérale */
+        background-color: #f0f0f0; /* Gris clair pour le contraste */
     }
+    
+    /* Couleur du texte dans les composants markdown */
     .stMarkdown {
-        color: #36363d; /* Couleur du texte */
+        color: #000000; /* Noir */
     }
+    
+    /* Couleur des titres */
+    h1, h2, h3 {
+        color: #ff0000; /* Rouge pour les titres de niveaux 1, 2, 3 */
+    }
+    
+    /* Couleur des sous-titres de niveau 4 */
+    h4 {
+        color: #4a4a4a; /* Gris foncé pour les sous-titres de niveau 4 */
+    }
+    
+    /* Couleur des boutons */
     .stButton>button {
-        background-color: #984a5a; /* Couleur des boutons */
-        color: white; /* Couleur du texte des boutons */
+        background-color: #ff4c4c; /* Rouge vif */
+        color: #ffffff; /* Blanc pour le texte */
+        border: none; /* Enlever les bordures par défaut */
+        border-radius: 5px; /* Coins arrondis */
     }
+    
+    /* Effet au survol des boutons */
+    .stButton>button:hover {
+        background-color: #e60000; /* Rouge plus foncé au survol */
+    }
+    
+    /* Style des tableaux */
+    .stTable {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    .stTable th, .stTable td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    
+    .stTable th {
+        background-color: #f2f2f2; /* Gris clair pour les en-têtes */
+        color: #000000; /* Noir pour le texte des en-têtes */
+    }
+    
+    .stTable tr:nth-child(even) {
+        background-color: #f9f9f9; /* Alternance de couleur pour les lignes */
+    }
+    
     </style>
     """,
     unsafe_allow_html=True
 )
+
+
 
 # Titre
 st.title("Temps de réponse de la brigade des pompiers de Londres")
@@ -63,7 +111,7 @@ if choice == "0 - Contexte et définition":
     
     st.write("""
         L’objectif de ce projet est d’analyser et/ou d’estimer le *temps de réponse* de la Brigade des Pompiers de Londres.
-        \n La brigade des pompiers de Londres est le service d'incendie et de sauvetage **le plus actif du Royaume-Uni et l'une des plus grandes organisations de lutte contre l'incendie et de sauvetage au monde**. L'enjeu d'une organisation efficiente est crucial pour sauver les vies de la plus grande metropole d'Europe de Occidentale.
+        \n La brigade des pompiers de Londres est le service d'incendie et de sauvetage **le plus actif du Royaume-Uni et l'une des plus grandes organisations de lutte contre l'incendie et de sauvetage au monde**. Une organisation efficiente est un enjeu crucial pour sauver les vies de la plus grande metropole d'Europe Occidentale.
         """)
 
     # Insère l'image dans la colonne du milieu
@@ -74,33 +122,32 @@ if choice == "0 - Contexte et définition":
 
     st.write("""
         **Notre objectif principal :**
-        - Prédire le temps de mobilisation et de trajet suite à appel du numéro d’urgence (999) et mobilisation d’une brigade.
+        - Prédire la durée pour l'arrivée des pompiers sur le lieu de l'incident suite à l'appel du numéro d’urgence (999) et à la prise de décision de mobilisation d’une brigade par la LFB.
 
         **Objectifs secondaires :**
-        - Identification des principales données d’entrée influençant les durées d’intervention dans une optique d’amélioration du service : temps de réponse.
-        - Réduction du temps d’intervention (souvent liée au temps de réponse) et par conséquent des coûts d’une intervention :
+        - Identification des principales données d’entrée influençant les durées d’intervention dans une optique de meilleure compréhension du temps de réponse.
+        - Réduction du temps d’intervention (souvent liée au temps de réponse*) et par conséquent des coûts d’une intervention :
             1) Coût humain (vies sauvées)
             2) Coût matériel (dégâts de l’incendie, ...)
-            3) Coût financier (assurances, coût de l’intervention, ...)
-        """)
+            3) Coût financier (assurances, coût de l’intervention, ...)            
+            """)
+
+    st.write("\n *On sait que les premières minutes & secondes sont vitales pour maitriser un incendie ou porter secours à personne en danger.")
+
 
 ############################################################################
 
 elif choice == "1 - Présentation des données":
     st.header("1 - Présentation des données")
 
-    st.write(
-        """
-        ### Volumétrie et Description des données
-        """
-            )
-    # Définir les données
+    st.write("""### Volumétrie et Description des données""")
+    
     data = {
-        "Jeux de données": ["Incidents", "Mobilisation"],
-        "Nombre de jeux de données": [2, 3],
-        "Période": ["1er janvier 2009 à 2024", "1er janvier 2009 à 2024"],
-        "Nombre d'entrées": [1_701_647, 2_373_348],
-        "Nombre de variables": [39, 22]
+        "Jeux de données": ["Incidents", "Mobilisations"],
+        "Nombre": [2, 3],
+        "Période": ["1er janvier 2009 à mai 2024", "1er janvier 2009 à mai 2024"],
+        "Entrées": [1_701_647, 2_373_348],
+        "Variables": [39, 22]
     }
     
     volumetrie = pd.DataFrame(data,)
@@ -134,7 +181,7 @@ elif choice == "1 - Présentation des données":
             - Localisation de la station.
             - Nombre de véhicules déployés depuis cette station.
         
-        Nous souhaitons étudier le temps de réponse, soit la différence entre le "timestamp" de l'appel et celui d'arrivée sur les lieux de l'incident.
+        **Nous souhaitons étudier le temps de réponse, soit la différence entre le "timestamp" de l'appel et celui d'arrivée sur les lieux de l'incident.**
         """
     )
 
@@ -165,26 +212,31 @@ elif choice == "2 - Visualisation des données":
 
     
     if sub_tab == "Analyse variable target":
-        load_and_display_plot('target_distribution.png')
+        load_and_display_plot('target_distribution.png', width = 700)
+        st.write(" ")
+        st.write(" ")
         load_and_display_plot('corr_matrix.png')
 
     elif sub_tab == "Analyse variables temporelles":
         st.write("   => Par années :")
-        load_and_display_interactive_plot('distrib_years.html')
+        load_and_display_interactive_plot('distrib_years.html', height = 600)
         st.write("   => Par mois :")
-        load_and_display_interactive_plot('distrib_month.html')
+        load_and_display_interactive_plot('distrib_month.html', height = 600)
         st.write("   => Par jour :")
-        load_and_display_interactive_plot('distrib_day.html')
+        load_and_display_interactive_plot('distrib_day.html', height = 600)
         st.write("   => Par heure :")
-        load_and_display_interactive_plot('distrib_hours.html')
+        load_and_display_interactive_plot('distrib_hours.html', height = 600)
 
     elif sub_tab == "Carte des incidents":
-        st.write("   Temps moyen de <ResponseDuration> groupé par code de District :")
+        st.write("Temps moyen de <ResponseDuration> groupé par code de District :")
         load_and_display_interactive_plot('mapmeantime.html')
 
     elif sub_tab == "Analyse variables spatiales":
+        st.write("**Easting & Northing sont un système de coordonnées de type (x,y) dont l'unité est le mètre permettant de répérer des positions dans l'espace. Il est possible de les utiliser sur de petites distances dès lors que la lattitude ne varie pas trop et que l'on peut donc faire l'hypothèse d'une surface plate.*")
+
+
         load_and_display_plot('distrib_easting.png')
-        load_and_display_plot('distrib_northing.png')
+        load_and_display_plot('distrib_northing.png', width = 720)
 
     elif sub_tab == "Analyse des stations":    
         load_and_display_interactive_plot('scatter_plot_stations.html')
@@ -220,7 +272,6 @@ elif choice == "3 - Feature engineering":
     """)
 
     st.dataframe(pd.read_csv(racine_projet()+'/data/processed/ML_data_info.csv'),width = 900,height=950)
-
 
 ############################################################################
 
@@ -279,14 +330,15 @@ elif choice == "5 - Modèles de classification":
 
     if sub_tab == "Catégorisation de la variable cible":
         st.write("""
-        Découpage du temps de réponse en plusieurs catégories pour transformer le problème de régression en problème de classification :
-        - Catégorisation du temps d’intervention en classes : “1 - rapide”, “2 - moyen”, “3 - lent”, “4 - très lent”.
-            - **Découpage arbitraire de la target**
-        """)
+            Découpage du temps de réponse en plusieurs catégories pour transformer le problème de régression en problème de classification, soit un découpage en 4 catégories : 
+                **1 = rapide,
+                 2 = moyen, 
+                 3 = lent,
+                 4 = très lent.**
+            """)
+        st.write(" - Découpage **arbitraire** de la target :")
         load_and_display_plot('cat_distrib_arb.png', width = 600)
-        st.write("""
-            - **Découpage selon les quartiles de la distribution**
-        """)
+        st.write(" - Découpage **selon les quartiles** de la distribution :")
         load_and_display_plot('cat_distrib_norm.png', width = 600)
         
 
@@ -368,10 +420,15 @@ elif choice == "6 - Modèles de deep learning":
     if option == 'Dense':
         model = tf.keras.models.load_model(racine_projet()+'/models/dense_fullyconnected_model.h5')
 
+    
     y_pred_dl = model.predict(X_test_dl)
     loss, accuracy = model.evaluate(X_test_dl, y_test_dl)
     y_pred_class = y_pred_dl.argmax(axis=1)
-
+    
+    st.write("""
+        **Présentation des performances du modèle Dense de réseau de neurones :**
+            """) 
+    load_and_display_plot('performances_deeplearning.png')
          
     df_metrics = pd.DataFrame({'Metric': ['Accuracy', 'Loss'],'Value': [accuracy, loss]})
 
@@ -382,10 +439,7 @@ elif choice == "6 - Modèles de deep learning":
     st.write("**Matrice de confusion :**")
     st.pyplot(conf_matrix(y_test_dl, y_pred_class))
     
-    st.write("""
-        **Présentation des performances du modèle Dense de Réseau de Neurones**
-            """) 
-    load_and_display_plot('performances_deeplearning.png')
+    
 
 
 ############################################################################
@@ -395,8 +449,8 @@ elif choice == "7 - Optimisation des modèles":
      
     # Données du tableau
     data = {
-        "Description des différentes tentatives réalisées pour améliorer la performance du modèle": [
-            "Passage sur un problème de classification",
+        "Optimisations testées pour améliorer la performance des modèles": [
+            "Transition sur un problème de classification",
             "Choix du modèle",
             "Réduction de dimension via la PCA",
             "Réduction de dimension via LDA",
@@ -407,15 +461,9 @@ elif choice == "7 - Optimisation des modèles":
             "Ré-équilibrage du jeu de données pour la classification",
             "Taille de l’Undersampling",
             "Utilisation de GridSearch",
-            "Utilisation du DeepLearning"
-        ],
-        "Impact Perf": [
-            "+", "+", "=", "-", "+", "=", "-","+", "+", "=", "+", "+"
-        ],
-        "Impact Temps Calcul": [
-            "=", "+", "+", "+", "+", "=", "=", "=", "=", "+", "-", "-"
-        ]
-    }
+            "Utilisation du DeepLearning"],
+        "Impact Perf": ["+", "+", "=", "-", "+", "=", "-","+", "+", "=", "+", "+"],
+        "Impact Calcul":["=", "+", "+", "+", "+", "=", "=", "=", "=", "+", "-", "-"]}
     
     # Création du DataFrame
     df = pd.DataFrame(data)
@@ -432,7 +480,7 @@ elif choice == "7 - Optimisation des modèles":
         return f'color: {color};'
     
     # Application des styles
-    styled_df = df.style.applymap(style_table, subset=['Impact Perf', 'Impact Temps Calcul'])
+    styled_df = df.style.applymap(style_table, subset=['Impact Perf', 'Impact Calcul'])
     
     # Affichage du DataFrame stylisé dans Streamlit
     st.write("**Description des différentes tentatives réalisées pour améliorer la performance du modèle**")
@@ -453,15 +501,15 @@ elif choice == "8 - Bilan & opportunités":
             - Prédiction du temps de réponse en secondes avec une fenêtre d'erreur.
             - Coefficient de détermination (R2): **0.33**
             - Marge d’erreur : **> 100 secondes**
-         
         - **Classification :**
             - Catégorisation du temps d’intervention en classes : “rapide”, “moyen”, “lent”, “très lent”.
             - Accuracy : **< 0.5**
-        
         - **Réponse aux objectifs :**
             - Modèles sont **non adaptés** aux attentes potentielles du métier et donc à l'objectif principal.
             - La **visualisation des données** apporte cependant des éléments d'analyse (notamment pour les objectifs secondaires).
-        
+    """)
+    st.write("""
+    
         #### PERSPECTIVES
         - **Revue du Feature Engineering :**
             - Réanalyse des variables existantes, par exemple la typologie d’incidents.
@@ -480,5 +528,5 @@ elif choice == "8 - Bilan & opportunités":
         st.write("")
         
     load_and_display_plot('london.jpeg')
-    st.write("*Photo de la 'City' Londres - par KF Juillet 2023*")
+    st.write("*Photo de la 'City' de Londres vue depuis la Tamise - Juillet 2023*")
 
