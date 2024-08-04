@@ -57,12 +57,12 @@ def load_model(model_name):
     return loaded_model
 
 
-def load_and_display_plot(image_name):
+def load_and_display_plot(image_name, width = 800):
     path = racine_projet()+'/reports/figures/'+ image_name
-    st.image(path)
+    st.image(path, use_column_width=False , width=width)
 
 def load_and_display_interactive_plot(image_name):
     path = racine_projet()+'/reports/figures/'+ image_name    
     with open(path, "r") as f:
         html_content = f.read()    
-    st.components.v1.html(html_content, height=600)
+    st.components.v1.html(html_content, height=800, width = 800, scrolling=True)

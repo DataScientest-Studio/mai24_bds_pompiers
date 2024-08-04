@@ -40,7 +40,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 # Titre
 st.title("Temps de réponse de la brigade des pompiers de Londres")
 
@@ -49,22 +48,22 @@ st.sidebar.title("Navigation")
 menu = ["0 - Contexte et définition",
         "1 - Présentation des données", 
         "2 - Visualisation des données", 
-        "3 - Feature Engineering", 
+        "3 - Feature engineering", 
         "4 - Modèles de régression", 
         "5 - Modèles de classification",
-        "6 - Modèles de Deep learning",
-        "7 - Évaluation & optimisation des modèles", 
+        "6 - Modèles de deep learning",
+        "7 - Optimisation des modèles", 
         "8 - Bilan & opportunités"]
 choice = st.sidebar.radio("Aller à :", menu)
 
 ############################################################################
 
 if choice == "0 - Contexte et définition":
-    st.header("0 - Contexte et définition du sujet")
+    st.header("0 - Contexte & identification du sujet")
     
     st.write("""
-        L’objectif de ce projet est d’analyser et/ou d’estimer les temps de réponse et de mobilisation de la Brigade des Pompiers de Londres.
-        La brigade des pompiers de Londres est le service d'incendie et de sauvetage le plus actif du Royaume-Uni et l'une des plus grandes organisations de lutte contre l'incendie et de sauvetage au monde.
+        L’objectif de ce projet est d’analyser et/ou d’estimer le *temps de réponse* de la Brigade des Pompiers de Londres.
+        \n La brigade des pompiers de Londres est le service d'incendie et de sauvetage **le plus actif du Royaume-Uni et l'une des plus grandes organisations de lutte contre l'incendie et de sauvetage au monde**. L'enjeu d'une organisation efficiente est crucial pour sauver les vies de la plus grande metropole d'Europe de Occidentale.
         """)
 
     # Insère l'image dans la colonne du milieu
@@ -79,10 +78,10 @@ if choice == "0 - Contexte et définition":
 
         **Objectifs secondaires :**
         - Identification des principales données d’entrée influençant les durées d’intervention dans une optique d’amélioration du service : temps de réponse.
-        - Réduction du temps d’intervention (souvent liée au temps de réponse) et par conséquent du coût d’une intervention :
-            - Coût humain (vies sauvées)
-            - Coût matériel (dégâts de l’incendie, …)
-            - Coût financier (assurances, coût de l’intervention)
+        - Réduction du temps d’intervention (souvent liée au temps de réponse) et par conséquent des coûts d’une intervention :
+            1) Coût humain (vies sauvées)
+            2) Coût matériel (dégâts de l’incendie, ...)
+            3) Coût financier (assurances, coût de l’intervention, ...)
         """)
 
 ############################################################################
@@ -131,9 +130,9 @@ elif choice == "1 - Présentation des données":
         - **Lieu de l'incident :** Typologie du lieu (maison, immeuble, bateau, avion, etc.) influençant le matériel et l'expertise nécessaires.
         - **Typologie d'incident :** Intervention classique, incendie, fausse alerte, etc. 
         - **Nombre de véhicules et leur caserne de déploiement :**
-              - Station de proximité ou autre station.
-              - Localisation de la station.
-              - Nombre de véhicules déployés depuis cette station.
+            - Station de proximité ou autre station.
+            - Localisation de la station.
+            - Nombre de véhicules déployés depuis cette station.
         
         Nous souhaitons étudier le temps de réponse, soit la différence entre le "timestamp" de l'appel et celui d'arrivée sur les lieux de l'incident.
         """
@@ -155,57 +154,72 @@ elif choice == "1 - Présentation des données":
 
 elif choice == "2 - Visualisation des données":
     st.header("2 - Analyse & visualisation des données")
+
+    sub_tab = st.selectbox("Choix des graphes à afficher :", ["Analyse variable target",
+                                                "Analyse variables temporelles",
+                                                "Carte des incidents",
+                                                "Analyse variables spatiales",
+                                                "Analyse des stations",
+                                                "Analyse des typologie d'incidents"
+                                                ])
+
     
-    st.write("**A. Analyse de la variable target**")
-    load_and_display_plot('target_distribution.png')
-    load_and_display_plot('corr_matrix.png')
-    
-    st.write("**B. Affichage des variables spatiales**")
-    load_and_display_plot('distrib_easting.png')
-    load_and_display_plot('distrib_northing.png')
+    if sub_tab == "Analyse variable target":
+        load_and_display_plot('target_distribution.png')
+        load_and_display_plot('corr_matrix.png')
 
-    st.write("**C. Carte des incidents**")
-    load_and_display_interactive_plot('mapmeantime.html')
+    elif sub_tab == "Analyse variables temporelles":
+        st.write("   => Par années :")
+        load_and_display_interactive_plot('distrib_years.html')
+        st.write("   => Par mois :")
+        load_and_display_interactive_plot('distrib_month.html')
+        st.write("   => Par jour :")
+        load_and_display_interactive_plot('distrib_day.html')
+        st.write("   => Par heure :")
+        load_and_display_interactive_plot('distrib_hours.html')
 
-    st.write("**D. Distributions Temporelles**")
-    load_and_display_interactive_plot('distrib_years.html')
-    load_and_display_interactive_plot('distrib_month.html')
-    load_and_display_interactive_plot('distrib_day.html')
-    load_and_display_interactive_plot('distrib_hours.html')
+    elif sub_tab == "Carte des incidents":
+        st.write("   Temps moyen de <ResponseDuration> groupé par code de District :")
+        load_and_display_interactive_plot('mapmeantime.html')
 
-    st.write("**E. Analyse des stations**")
-    load_and_display_plot('stations.png')
+    elif sub_tab == "Analyse variables spatiales":
+        load_and_display_plot('distrib_easting.png')
+        load_and_display_plot('distrib_northing.png')
 
-    st.write("**F. Analyse des typologie d'incidents**")
-    load_and_display_plot('stopcode_response_duration.png')
+    elif sub_tab == "Analyse des stations":    
+        load_and_display_interactive_plot('scatter_plot_stations.html')
 
-
+    elif sub_tab == "Analyse des typologie d'incidents":
+        load_and_display_plot('incidenttype_response_duration.png')
 
 ############################################################################
 
-elif choice == "3 - Feature Engineering":
-    st.header("3 - Feature Engineering")
+elif choice == "3 - Feature engineering":
+    st.header("3 - Feature engineering")
     st.write("""
-        #### Suppression de variables pour causes diverses 
+        #### A - Suppression de variables pour causes diverses 
         
-        - **Redondance** (par colinéarité ou par codification) 
-        - **Variables administratives**
-        - **Variables de sortie**
-        - **% de NaNS trop élevés**
+        - **Variables redondantes** (par colinéarité ou par codification) - exemple : 'DeployedFromStation_Code', 'PlusCode_Code', 'DelayCodeId', ...
+        - **Variables administratives** - 'IncidentNumber', 'Resource_Code'
+        - **Variables de sortie** - notamment les différentes variables 'Attendance_Time' 
+        - **Variables avec % de NaNs trop élevé** - 'DelayCode', 'PosctCode_full' ...
 
-        #### Ajout/traitement de variables 
+        #### B - Ajout/traitement de variables 
         
-        - **Variables météo :** rain, temperature, humidité, vitesse du vent,...
+        - **Variables météo :** rain, temperature, humidité, vitesse du vent, ...
         - **Cyclicité des variables de temps :** heure, jour, mois
+        - **Compilation de plusieurs variables en une seule** : 'IncidentType' regroupant 'IncidentGroup', 'StopCodeDescription' et 'SpecialServiceType' 
 
-        #### Suppression des NaNs restantes
+        #### C - Suppression des NaNs restantes
 
-        => Obtention avant preprocessing d'un dataset ci-dessous :
+        - Suppression des entrées contenant encore certaines NaN, soit environ
+        2500 lignes.
+        
+        Obtention avant preprocessing d'un **dataset** contenant **25 variables d'entrée** et la target **ResponseDuration** ci-dessous :
 
     """)
 
-    st.dataframe(pd.read_csv(racine_projet()+'/data/processed/ML_data_info.csv'))
-
+    st.dataframe(pd.read_csv(racine_projet()+'/data/processed/ML_data_info.csv'),width = 900,height=950)
 
 
 ############################################################################
@@ -246,13 +260,11 @@ elif choice == "4 - Modèles de régression":
 
     y_pred_reg = regressor.predict(X_test_reg)
 
-    display = st.radio('Que souhaitez-vous montrer ?', ('R2','RMSE','MAE'))
-    if display == 'R2':
-        st.write(r2_score(y_test_reg, y_pred_reg))
-    elif display == 'RMSE':
-        st.write(root_mean_squared_error(y_test_reg, y_pred_reg))
-    elif display == 'MAE':
-        st.write(mean_absolute_error(y_test_reg, y_pred_reg))
+    df_metrics = pd.DataFrame({'Metric': ['R2', 'RMSE', 'MAE'],
+                               'Value': [r2_score(y_test_reg, y_pred_reg), root_mean_squared_error(y_test_reg, y_pred_reg), mean_absolute_error(y_test_reg, y_pred_reg)]})
+
+    st.write("**Résumé des métriques :**")
+    st.dataframe(df_metrics)
 
     st.write("""
     **Présentation des meilleurs résultats obtenus pour chaque modèle**
@@ -263,115 +275,123 @@ elif choice == "4 - Modèles de régression":
 
 elif choice == "5 - Modèles de classification":
     st.header("5 - Modèles de classification")
-    st.write("""
-    Découpage du temps de réponse en plusieurs catégories pour transformer le problème de régression en problème de classification
-        - **Découpage arbitraire de la target**
-    """)
-    load_and_display_plot('cat_distrib_arb.png')
-    st.write("""
-        - **Découpage selon les quartiles de la distribution**
-    """)
-    load_and_display_plot('cat_distrib_norm.png')
-    
-    st.write("""
-    Preprocessing & affichage des informations du X_train :
-    """)
+    sub_tab = st.selectbox("Affichage de :", ["Catégorisation de la variable cible","Entraînement et résultats"])
 
-    @st.cache_data
-    def preprocessing_class():
-        X_train, y_train, X_test, y_test = prepross_class(test_size = 0.2, sampling = 50000, scaler_type='standard', dim_reduction_method='none')
-        return (X_train, y_train, X_test, y_test)
-    
-    X_train_cl, y_train_cl, X_test_cl, y_test_cl = preprocessing_class()
-
-    st.dataframe(dataframe_info(pd.DataFrame(X_train_cl)))
-
-    st.write("""
-        **Modèles de Classification**
+    if sub_tab == "Catégorisation de la variable cible":
+        st.write("""
+        Découpage du temps de réponse en plusieurs catégories pour transformer le problème de régression en problème de classification :
+        - Catégorisation du temps d’intervention en classes : “1 - rapide”, “2 - moyen”, “3 - lent”, “4 - très lent”.
+            - **Découpage arbitraire de la target**
         """)
+        load_and_display_plot('cat_distrib_arb.png', width = 600)
+        st.write("""
+            - **Découpage selon les quartiles de la distribution**
+        """)
+        load_and_display_plot('cat_distrib_norm.png', width = 600)
+        
+
+    if sub_tab == "Entraînement et résultats":
+        
+        st.write("""Affichage des informations du X_train et de ses **72 features** après pre-processing :""")
+        @st.cache_data
+        def preprocessing_class():
+            X_train, y_train, X_test, y_test = prepross_class(test_size = 0.2, sampling = 50000, scaler_type='standard', dim_reduction_method='none')
+            return (X_train, y_train, X_test, y_test)
+        
+        X_train_cl, y_train_cl, X_test_cl, y_test_cl = preprocessing_class()
     
-    choix = ['KNN', 'Decision Tree', 'Random Forest','Gridsearch RandomForest', 'XGB Classifier', 'Gridsearch XGB Classifier']
-    option = st.selectbox('Choix du modèle', choix)
-    st.write('Le modèle choisi est :', option)
-
-    if option == 'KNN':
-        clf = load_model('knn_model.pkl')
-    elif option == 'Decision Tree':
-        clf = load_model('decisiontree_model.pkl')
-    elif option == 'Random Forest':
-        clf = load_model('randomforest_model.pkl')
-    elif option == 'Gridsearch RandomForest':
-        clf = load_model('gridsearch_randomforest_model.pkl')
-    elif option == 'XGB Classifier':
-        clf = load_model('xgb_classifier_model.pkl')
-    elif option == 'Gridsearch XGB Classifier':
-        clf = load_model('gridsearch_xgb_classifier_model.pkl')
-
-    y_pred_cl = clf.predict(X_test_cl)   
-         
-
-    display = st.radio('Que souhaitez-vous montrer ?', ('Accuracy', 'Confusion matrix'))
-
-    if display == 'Accuracy':
-        st.write(clf.score(X_test_cl, y_test_cl))
-    elif display == 'Confusion matrix':
+        st.dataframe(dataframe_info(pd.DataFrame(X_train_cl)))
+    
+        st.write("""
+            **Modèles de Classification**
+            """)
+        
+        choix = ['KNN', 'Decision Tree', 'Random Forest','Gridsearch RandomForest', 'XGB Classifier', 'Gridsearch XGB Classifier']
+        option = st.selectbox('Choix du modèle', choix)
+        st.write('Le modèle choisi est :', option)
+    
+        if option == 'KNN':
+            clf = load_model('knn_model.pkl')
+        elif option == 'Decision Tree':
+            clf = load_model('decisiontree_model.pkl')
+        elif option == 'Random Forest':
+            clf = load_model('randomforest_model.pkl')
+        elif option == 'Gridsearch RandomForest':
+            clf = load_model('gridsearch_randomforest_model.pkl')
+        elif option == 'XGB Classifier':
+            clf = load_model('xgb_classifier_model.pkl')
+            st.write(""" **Interprétation du modèle XGB Classifier** """) 
+            load_and_display_plot('interpretation.png')
+        elif option == 'Gridsearch XGB Classifier':
+            clf = load_model('gridsearch_xgb_classifier_model.pkl')
+    
+        y_pred_cl = clf.predict(X_test_cl)   
+        score = clf.score(X_test_cl, y_test_cl)
+    
+        st.write("**Résumé des métriques :**")
+        st.write(f'**Accuracy** : {score}')
+        st.write(" ")
+            
+        st.write("**Matrice de confusion :**")
         st.pyplot(conf_matrix(y_test_cl, y_pred_cl))
-
-    st.write("""
-        **Présentation des meilleurs résultats obtenus pour chaque modèle**
-            """) 
-    load_and_display_plot('comparaison_score_class.png')
+    
+        st.write("""
+            **Présentation des meilleurs résultats obtenus pour chaque modèle**
+                """) 
+        load_and_display_plot('comparaison_score_class.png')
 
 ############################################################################
 
-elif choice == "6 - Modèles de Deep learning":
-    st.header("6 - Modèles de Deep learning")
+elif choice == "6 - Modèles de deep learning":
+    st.header("6 - Modèles de deep learning")
 
     @st.cache_data
     def preprocessing_class():
         X_train, y_train, X_test, y_test = prepross_class(test_size = 0.2, sampling = 50000, scaler_type='standard', dim_reduction_method='none')
         return (X_train, y_train, X_test, y_test)
     
-    X_train_cl, y_train_cl, X_test_cl, y_test_cl = preprocessing_class()
-
-    st.dataframe(dataframe_info(pd.DataFrame(X_train_cl)))
-
-    st.write("""
-        **Modèles de Deep Learning**
-        """)
+    X_train_dl, y_train_dl, X_test_dl, y_test_dl = preprocessing_class()
+    y_train_dl = y_train_dl.astype(int)
+    y_test_dl = y_test_dl.astype(int)
     
-    choix = ['Dense', 'Dense amélioré']
+    st.write("""
+        **Modèle de Deep Learning**
+        """)
+
+    from tensorflow.keras.models import Model
+    import tensorflow as tf
+    
+    choix = ['Dense']
     option = st.selectbox('Choix du modèle', choix)
     st.write('Le modèle choisi est :', option)
 
     if option == 'Dense':
-        model = load_model('dense_fullyconnected_model.pkl')
-    elif option == 'Dense amélioré':
-        model = load_model('dense_improved_model.pkl')
+        model = tf.keras.models.load_model(racine_projet()+'/models/dense_fullyconnected_model.h5')
 
-    y_pred_cl = model.predict(X_test_cl)   
+    y_pred_dl = model.predict(X_test_dl)
+    loss, accuracy = model.evaluate(X_test_dl, y_test_dl)
+    y_pred_class = y_pred_dl.argmax(axis=1)
+
          
-    display = st.radio('Que souhaitez-vous montrer ?', ('Accuracy', 'Confusion matrix'))
+    df_metrics = pd.DataFrame({'Metric': ['Accuracy', 'Loss'],'Value': [accuracy, loss]})
 
-    if display == 'Accuracy':
-        st.write(model.score(X_test_cl, y_test_cl))
-    elif display == 'Confusion matrix':
-        st.pyplot(conf_matrix(y_test_cl, y_pred_cl))
-
+    st.write("**Résumé des métriques :**")
+    st.dataframe(df_metrics)
+    st.write(" ")
+        
+    st.write("**Matrice de confusion :**")
+    st.pyplot(conf_matrix(y_test_dl, y_pred_class))
+    
     st.write("""
-        **Présentation des meilleurs résultats obtenus pour chaque modèle**
+        **Présentation des performances du modèle Dense de Réseau de Neurones**
             """) 
-    load_and_display_plot('comparaison_score_class.png')
+    load_and_display_plot('performances_deeplearning.png')
+
 
 ############################################################################
 
-elif choice == "7 - Évaluation & optimisation des modèles":
-    st.header("7 - Évaluation & optimisation des modèles")
-    st.write("""
-    Évaluez les performances de vos modèles ici.
-    """)
-    # Code pour évaluer les modèles
-
+elif choice == "7 - Optimisation des modèles":
+    st.header("7 - Optimisation des modèles")
      
     # Données du tableau
     data = {
@@ -403,9 +423,9 @@ elif choice == "7 - Évaluation & optimisation des modèles":
     # Fonction pour définir les styles CSS
     def style_table(value):
         color = 'black'
-        if value == '+':
+        if value == '-':
             color = 'red'
-        elif value == '-':
+        elif value == '+':
             color = 'green'
         elif value == '=':
             color = 'grey'
@@ -416,50 +436,49 @@ elif choice == "7 - Évaluation & optimisation des modèles":
     
     # Affichage du DataFrame stylisé dans Streamlit
     st.write("**Description des différentes tentatives réalisées pour améliorer la performance du modèle**")
-    st.dataframe(styled_df)
+    st.dataframe(styled_df, height = 470)
 
 
 ############################################################################
 
 elif choice == "8 - Bilan & opportunités":
-    st.header("8 - Bilan & opportunités")
+    st.header("8 - Bilan & Perspectives")
    
     st.write("""
-        - Rappel de l'objectif = **prédire** le temps nécessaire à un véhicule de pompiers pour arriver sur les lieux d'un incident après la décision d’intervenir.
+        - Rappel de l'objectif : 
+            - **Prédire le temps pour un véhicule de pompiers** pour arriver sur les lieux d'un incident après la décision d’intervenir.
         
-        #### Approches de Modélisation
+        #### BILAN
         - **Régression :**
-          - Prédiction du temps de réponse en secondes avec une fenêtre d'erreur.
+            - Prédiction du temps de réponse en secondes avec une fenêtre d'erreur.
+            - Coefficient de détermination (R2): **0.33**
+            - Marge d’erreur : **> 100 secondes**
+         
         - **Classification :**
-          - Catégorisation du temps d’intervention en classes : “rapide”, “moyen”, “lent”, “très lent”.
+            - Catégorisation du temps d’intervention en classes : “rapide”, “moyen”, “lent”, “très lent”.
+            - Accuracy : **< 0.5**
         
-        #### Résultats
-        - **Régression :**
-          - Coefficient de détermination : 0.33
-          - Marge d’erreur : environ 100 secondes
-        - **Classification :**
-          - Accuracy : < 0.5
+        - **Réponse aux objectifs :**
+            - Modèles sont **non adaptés** aux attentes potentielles du métier et donc à l'objectif principal.
+            - La **visualisation des données** apporte cependant des éléments d'analyse (notamment pour les objectifs secondaires).
         
-        #### Bilan
-        - **Points Positifs :**
-          - Application de compétences nouvelles acquises par l'équipe.
-          - Identification de pistes d'amélioration pour des résultats futurs.
-        
-        #### Axes de Poursuite
-        - **Feature Engineering :**
-          - Réanalyse des variables existantes, par exemple la typologie d’incidents.
+        #### PERSPECTIVES
+        - **Revue du Feature Engineering :**
+            - Réanalyse des variables existantes, par exemple la typologie d’incidents.
         - **Amélioration de la Classification :**
-          - Collaboration avec la London Fire Brigade pour définir les durées d’intervention critiques.
+            - Collaboration avec la London Fire Brigade (LFB) pour définir les durées d’intervention critiques.
         - **Enrichissement du Dataset :**
-          - Ajout de données pertinentes telles que la circulation ou les moyens financiers des brigades.
+            - Ajout de données pertinentes telles que la circulation ou les moyens financiers des brigades.
         - **Segmentation du Problème :**
-          - Traitement distinct des problèmes “incendie” et “secours à personne”.
-        
-        #### Approches de Modélisation Futures
-        - **Machine Learning :**
-          - Utilisation de puissances de calcul accrues pour des modèles plus complexes.
-        - **Deep Learning :**
-          - Développement de réseaux de neurones plus sophistiqués.
+            - Traitement distinct des problèmes “incendie” et “secours à personne”.
+        - **Modèles :**
+            - Utilisation de puissances de calcul accrues pour des modèles plus complexes.
+            - Développement de réseaux de neurones plus sophistiqués.
                     
     """)
-    # Code pour interpréter les résultats
+    for _ in range(2):
+        st.write("")
+        
+    load_and_display_plot('london.jpeg')
+    st.write("*Photo de la 'City' Londres - par KF Juillet 2023*")
+

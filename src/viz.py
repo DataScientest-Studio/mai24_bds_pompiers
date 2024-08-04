@@ -153,7 +153,7 @@ def conf_matrix(y_test, y_pred):
     from sklearn.metrics import confusion_matrix
     conf_matrix = confusion_matrix(y_test, y_pred)
 
-    fig = plt.figure(figsize=(7, 5))
+    fig = plt.figure(figsize=(7, 6))
     sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
     plt.xlabel('Predicted Labels')
     plt.ylabel('True Labels')
